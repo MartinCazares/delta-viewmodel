@@ -1,10 +1,10 @@
 # PaginationViewModel
 
-This library is a wrapper around the new Android's Architecture component [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) with extended functionality and a few major difference, to understand a little bit better these differences let's look at how Android's [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) works compared to [PaginationViewHolder](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java).
+This library is a wrapper around the new Android's Architecture component [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) with extended functionality and a few major difference, to understand a little bit better these differences let's look at how Android's [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) works compared to [PaginationViewModel](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java).
 
 In a nutshell as per documentation "The [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) class is designed to store and manage UI-related data in a lifecycle conscious way. The [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) class allows data to survive configuration changes such as screen rotations."
 
-The very same principle applies to [PaginationViewHolder](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java), hence, under the hood both of them are essentially the same, however, the current [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) implementation works perfect for static data and immutable collections, as shown in the documentation's example, you could fetch once a list of users that takes a while to load and then it will be available for you after configuration changes without having to load it again:
+The very same principle applies to [PaginationViewModel](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java), hence, under the hood both of them are essentially the same, however, the current [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel.html) implementation works perfect for static data and immutable collections, as shown in the documentation's example, you could fetch once a list of users that takes a while to load and then it will be available for you after configuration changes without having to load it again:
 
     public class MyViewModel extends ViewModel {
         private MutableLiveData<List<User>> users;
@@ -43,7 +43,7 @@ Assuming that this is a pagination list and now you fetch the next page of users
 
 This approach makes it really hard to use this data in a RecyclerView because you would have to either reload every single element in the RecyclerView or come up with your own mechanism to know which elements are already in and which ones are new, so you can notify the adapter to add your newly added elements.
 
-This is where the [PaginationViewHolder](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java) comes to play, this wrapper class doesn't contain one single "onChanged" method, but instead provides "DeltaMethods":
+This is where the [PaginationViewModel](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java) comes to play, this wrapper class doesn't contain one single "onChanged" method, but instead provides "DeltaMethods":
 
     public interface PaginationObserver<T> {
             void onNewPage(@Nullable List<T> pageSubsetOnly, String pageId);
@@ -55,7 +55,7 @@ Now, based on the previous example, assuming that you already loaded the first p
  - Beatty M
  - Chris L
 
-If you fetch the next page through [PaginationViewHolder](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java), in the method
+If you fetch the next page through [PaginationViewModel](https://github.com/MartinCazares/delta-viewmodel/blob/master/app/src/main/java/com/doepiccoding/viewmodel/models/PaginationViewModel.java), in the method
 > void onNewPage(@Nullable List<T> t, String pageId);
 
 You will get only these elements:
